@@ -41,3 +41,17 @@ Player.prototype.bind = function () {
     });
   });
 }
+
+/**
+ * Gets the x position of the player
+ */
+Player.prototype.get_x = function () {
+  return this.player_el.position().left;
+}
+
+/**
+ * Gets the y position of the player
+ */
+Player.prototype.get_y = function () {
+  return this.player_el.position().top;
+}

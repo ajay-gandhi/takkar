@@ -36,7 +36,6 @@ Ball.prototype.start = function (parent) {
  * Moves the ball to a location and schedules the next move
  */
 Ball.prototype.next_move = function () {
-  console.log(this);
   var size   = this.ball_el.width(),
       parent = this.ball_el.parent();
 
