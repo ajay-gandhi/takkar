@@ -1,0 +1,34 @@
+
+/**
+ * Game styles
+ */
+.takkar, .takkar * {
+  padding: 0;
+  margin: 0;
+}
+.takkar {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  border: 1px solid #cccccc;
+  cursor: none;
+}
+
+/**
+ * Ball styles
+ */
+.takkar .ball {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #d2d2d2;
+}
+
+/**
+ * Player styles
+ */
+.takkar .player {
+  position: absolute;
+  background-color: #415ca9;
+}
