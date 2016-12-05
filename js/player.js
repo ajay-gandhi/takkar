@@ -19,7 +19,7 @@ Player.prototype.render = function (parent) {
  * Binds listeners for this player
  */
 Player.prototype.bind = function () {
-  if (!this.player_el) return console.error('Bind failed: player not initialized.');
+  if (!this.player_el) return console.error('Bind failed: player not rendered.');
 
   var self = this;
   var size = this.player_el.width() / 2;

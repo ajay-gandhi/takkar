@@ -19,10 +19,16 @@
  * Ball styles
  */
 .takkar .ball {
+  position: absolute;
   width: 40px;
   height: 40px;
   border-radius: 20px;
   background-color: #d2d2d2;
+}
+.takkar .enemy {
+  display: none;
+  top: 30px;
+  left: 30px;
 }
 
 /**
@@ -30,5 +36,7 @@
  */
 .takkar .player {
   position: absolute;
+  top: 0;
+  left: 0;
   background-color: #415ca9;
 }
