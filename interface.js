@@ -1,6 +1,5 @@
 
 var game = new Takkar();
-var quality_map = [-1, 200, 50, 25];
 
 $(document).ready(function () {
   game.render($('#game'));
@@ -13,6 +12,6 @@ $(document).ready(function () {
     $(this).css('color', '#666666');
 
     // Adjust game quality (setInterval timeout)
-    game.speed = quality_map[parseInt($(this).attr('id'))];
+    game.set_quality(parseInt($(this).attr('id')));
   });
 });

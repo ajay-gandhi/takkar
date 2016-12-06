@@ -4,12 +4,14 @@
  */
 
 var next_power = 6;
+var quality_map = [-1, 200, 50, 25];
 
 function Takkar () {
   this.game_el = false;
   this.player = new Player();
   this.balls = [];
   this.speed = 50;
+  this.is_low_q = false;
 }
 
 /**
@@ -18,7 +20,24 @@ function Takkar () {
 Takkar.prototype.render = function (parent) {
   this.game_el = $('<div class="takkar"><div class="score">0</div></div>');
   this.player.render(this.game_el);
+  this.player.player_el.addClass('blue-grad');
   parent.append(this.game_el);
+}
+
+/**
+ * Sets the quality of the game
+ */
+Takkar.prototype.set_quality = function (q) {
+  var self = this;
+  this.is_low_q = q == 1;
+  this.speed = quality_map[q];
+  mod = 1000 / this.speed;
+
+  // Toggle gradient on current balls
+  this.player.player_el.toggleClass('blue-grad', !this.is_low_q);
+  this.balls.forEach(function (b) {
+    b.ball_el.toggleClass('gray-grad', !self.is_low_q);
+  });
 }
 
 /**
@@ -32,6 +51,7 @@ Takkar.prototype.start = function () {
   // Start with one ball
   var ball = new Ball(next_power);
   ball.render(this.game_el);
+  ball.ball_el.addClass('gray-grad');
   ball.start(function () {
     self.balls.push(ball);
   });
@@ -106,6 +126,7 @@ var clock_tick = function (self) {
     if (score % 10 == 0) {
       // Add another ball
       var ball = new Ball(next_power);
+      ball.ball_el.toggleClass('gray-grad', !self.is_low_q);
       ball.render(self.game_el);
       ball.start(function () {
         self.balls.push(ball);

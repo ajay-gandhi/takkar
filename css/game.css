@@ -66,7 +66,7 @@
   z-index: 50;
 }
 .gray-grad {
-  background-image: radial-gradient(circle farthest-corner at 15px 15px , #f2f2f2 0%, #929292 100%);
+  background-image: radial-gradient(circle farthest-corner at 13px 13px , #f2f2f2 0%, #747474 100%);
 }
 
 /**
@@ -80,5 +80,5 @@
   z-index: 100;
 }
 .blue-grad {
-  background-image: radial-gradient(circle farthest-corner at 15px 15px , #80e1e1 0%, #2687fb 100%);
+  background-image: radial-gradient(circle farthest-corner at 13px 13px , #80e1e1 0%, #0869dd 100%);
 }
