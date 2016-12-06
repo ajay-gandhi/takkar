@@ -12,6 +12,7 @@ function Takkar () {
   this.balls = [];
   this.speed = 50;
   this.is_low_q = false;
+  this.new_ball = false;
 }
 
 /**
@@ -53,9 +54,11 @@ Takkar.prototype.start = function () {
   var ball = new Ball(next_power);
   ball.render(this.game_el);
   ball.ball_el.addClass('gray-grad');
+  self.new_ball = ball;
   ball.start(function () {
     ball.ball_el.toggleClass('gray-grad', !self.is_low_q);
     self.balls.push(ball);
+    self.new_ball = false;
   });
 
   this.start_time = Date.now();
@@ -69,6 +72,7 @@ Takkar.prototype.stop = function () {
   window.clearTimeout(this.timeoutId);
   this.player.stop();
   this.balls.forEach(function (b) { b.ball_el.stop(); });
+  if (this.new_ball) this.new_ball.ball_el.stop();
 }
 
 /**
@@ -129,9 +133,11 @@ var clock_tick = function (self) {
       var ball = new Ball(next_power);
       ball.render(self.game_el);
       ball.ball_el.toggleClass('gray-grad', !self.is_low_q);
+      self.new_ball = ball;
       ball.start(function () {
         ball.ball_el.toggleClass('gray-grad', !self.is_low_q);
         self.balls.push(ball);
+        self.new_ball = false;
       });
     }
     next = false;
