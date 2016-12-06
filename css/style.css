@@ -1,20 +1,44 @@
 
 * {
   font-family: Futura, Helvetica;
+  margin: 0;
+  padding: 0;
 }
 body {
   cursor: auto;
   overflow: hidden;
+  background-color: #f2f2f2;
 }
 
 #game {
   text-align: center;
+  opacity: 0.3;
+  margin-top: 10px;
+}
+
+.start-game {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 350px;
+  height: 350px;
+  margin-left: -175px;
+  margin-top: 11px;
+  line-height: 350px;
+  text-align: center;
+  font-size: 50px;
+  color: #dddddd;
+  background-color: #4f4f4f;
+  opacity: 0.75;
+  z-index: 200;
+  cursor: pointer;
 }
 
 #options {
   width: 350px;
   margin: 0 auto;
-  color: #c2c2c2;
+  color: #b2b2b2;
+  padding: 3px;
 }
 .quality {
   font-size: 16px;

@@ -4,7 +4,7 @@
  */
 
 var next_power = 6;
-var quality_map = [-1, 100, 50, 25];
+var quality_map = [-1, 75, 50, 25];
 
 function Takkar () {
   this.game_el = false;
@@ -110,9 +110,14 @@ Takkar.prototype.game_over = function () {
         over.html('Game over!<br />You survived for ' + score + 's.');
         self.game_el.append($('<div class="cover"></div>'));
         self.game_el.append(over);
-        self.game_el.find('.cover').delay(800).fadeTo('normal', 0.7);
+        self.game_el.find('.cover').delay(800).fadeTo('normal', 0.75);
         self.game_el.find('.final-score').delay(800).fadeIn();
         self.game_el.css('cursor', 'auto');
+
+        // Play again
+        self.game_el.click(function () {
+          history.go(0);
+        });
       }
     });
 }
@@ -194,14 +199,14 @@ var check_collisions = function (self) {
 
         // Move balls until they aren't touching
         var b;
-        while (are_touching(objects[i].ball, objects[j].ball)) {
+        // while (are_touching(objects[i].ball, objects[j].ball)) {
           b = objects[i].ball;
           b.ball_el.css('left', b.get_x() + (b.dx * b.power));
           b.ball_el.css('top', b.get_y() + (b.dy * b.power));
           b = objects[j].ball;
           b.ball_el.css('left', b.get_x() + (b.dx * b.power));
           b.ball_el.css('top', b.get_y() + (b.dy * b.power));
-        }
+        // }
 
         // Stop initial movement and start again
         objects[i].ball.ball_el.stop();

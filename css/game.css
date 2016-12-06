@@ -12,7 +12,10 @@
   height: 350px;
   margin: 0 auto;
   border: 1px solid #cccccc;
+  background-color: #f8f8f8;
   cursor: none;
+  box-shadow: inset 0 0 10px 2px #e2e2e2;
+  overflow: hidden;
 }
 .takkar .score {
   position: absolute;
@@ -29,13 +32,14 @@
 .takkar .final-score {
   display: none;
   position: absolute;
-  top: 120px;
+  top: 115px;
   left: 0;
   width: 100%;
-  color: #666666;
+  color: #dddddd;
   font-size: 30px;
   line-height: 55px;
   z-index: 102;
+  cursor: pointer;
 }
 .takkar .cover {
   display: none;
@@ -44,9 +48,9 @@
   right: 0;
   bottom: 0;
   left: 0;
-  opacity: 0.7;
-  background-color: #f2f2f2;
+  background-color: #4f4f4f;
   z-index: 101;
+  cursor: pointer;
 }
 
 /**
@@ -74,9 +78,9 @@
  */
 .takkar .player {
   position: absolute;
-/*  bottom: 0;
-  right: 0;
-*/  background-color: #2687fb;
+  top: 158px;
+  left: 158px;
+  background-color: #2687fb;
   z-index: 100;
 }
 .blue-grad {
