@@ -27,9 +27,8 @@ Player.prototype.bind = function () {
   var parent = this.player_el.parent(),
       max_w  = parent.width() - (size * 2),
       max_h  = parent.height() - (size * 2);
-  $(document).on('mousemove', function (e) {
-    var y = e.pageY - parent.offset().top - size;
-    var x = e.pageX - parent.offset().left - size;
+
+  var move_player = function (x, y) {
     if (x < 0) x = 0;
     if (y < 0) y = 0;
     if (x > max_w) x = max_w;
@@ -39,6 +38,19 @@ Player.prototype.bind = function () {
       left: x,
       top:  y
     });
+  }
+
+  $(document).on('mousemove', function (e) {
+    var y = e.pageY - parent.offset().top - size;
+    var x = e.pageX - parent.offset().left - size;
+    move_player(x, y);
+  });
+
+  $(document).bind('touchmove', function (e) {
+    var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+    var y = touch.pageY - parent.offset().top - size;
+    var x = touch.pageX - parent.offset().left - size;
+    move_player(x, y);
   });
 }
 
