@@ -98,6 +98,7 @@ Takkar.prototype.stop = function () {
   window.clearTimeout(this.timeoutId);
   this.player.stop();
   this.balls.forEach(function (b) { b.ball_el.stop(); });
+  this.game_el.find('.avoid-instr').remove();
   if (this.new_ball) this.new_ball.ball_el.stop();
 }
 
@@ -142,7 +143,21 @@ Takkar.prototype.game_over = function () {
 
         // Play again
         self.game_el.click(function () {
-          history.go(0);
+          self.game_el.off('click');
+
+          // Reset everything pretty much
+          self.game_el.children(':not(.score)').remove();
+          next_power = 6;
+          self.player = new Player();
+          self.player.render(self.game_el);
+          self.player.player_el.toggleClass('blue-grad', !self.is_low_q);
+          self.balls = [];
+          self.new_ball = false;
+
+          score = 0;
+
+          // Start the new game
+          self.start();
         });
       }
     });
