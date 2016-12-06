@@ -60,6 +60,7 @@
   height: 40px;
   border-radius: 20px;
   background-color: #c2c2c2;
+  background-image: radial-gradient(circle farthest-corner at 15px 15px , #f2f2f2 0%, #929292 100%);
 }
 .takkar .enemy {
   display: none;
@@ -76,5 +77,6 @@
   bottom: 0;
   right: 0;
   background-color: #2687fb;
+  background-image: radial-gradient(circle farthest-corner at 15px 15px , #80e1e1 0%, #2687fb 100%);
   z-index: 100;
 }
