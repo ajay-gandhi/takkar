@@ -45,6 +45,7 @@ Takkar.prototype.start = function () {
  */
 Takkar.prototype.stop = function () {
   window.clearTimeout(this.timeoutId);
+  this.player.unbind();
   this.balls.forEach(function (b) { b.ball_el.stop(); });
 }
 
@@ -113,10 +114,7 @@ var check_collisions = function (self) {
         // If player collided, game over
         if (objects[i].is_p || objects[j].is_p) self.game_over();
 
-        // Reverse ball directions depending on bounce
-        if (objects[i].ball.dx * objects[j].ball.dx > 0) {
-
-        }
+        // Trade ball directions
         var jx = objects[j].ball.dx, jy = objects[j].ball.dy;
         objects[j].ball.dx = objects[i].ball.dx;
         objects[j].ball.dy = objects[i].ball.dy;
@@ -139,7 +137,7 @@ var check_collisions = function (self) {
           b.ball_el.css('top', b.get_y() + (b.dy * b.power));
         }
 
-        // Both balls should move again
+        // Stop initial movement and start again
         objects[i].ball.ball_el.stop();
         objects[j].ball.ball_el.stop();
         objects[i].ball.next_move();

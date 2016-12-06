@@ -16,14 +16,15 @@
 }
 .takkar .score {
   position: absolute;
-  top: 5px;
+  top: 1px;
   right: 5px;
   width: 50px;
   height: 30px;
   color: #cccccc;
   font-size: 26px;
+  font-family: Futura, Helvetica;
   text-align: right;
-  border: 1px solid blue;
+  overflow: none;
 }
 
 /**

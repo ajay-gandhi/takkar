@@ -43,6 +43,13 @@ Player.prototype.bind = function () {
 }
 
 /**
+ * Unbinds listeners for this player
+ */
+Player.prototype.unbind = function () {
+  $(document).off('mousemove');
+}
+
+/**
  * Gets the x position of the player
  */
 Player.prototype.get_x = function () {
