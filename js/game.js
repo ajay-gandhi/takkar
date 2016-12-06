@@ -59,6 +59,32 @@ Takkar.prototype.start = function () {
     ball.ball_el.toggleClass('gray-grad', !self.is_low_q);
     self.balls.push(ball);
     self.new_ball = false;
+
+    // Add "avoid me" helper
+    self.game_el.append($('<div class="avoid-instr">avoid me</div>'));
+    var x = ball.ball_el.position().left - 10,
+        y = ball.ball_el.position().top + 4;
+    self.game_el
+      .find('.avoid-instr')
+      .css({
+        top:  y,
+        left: x
+      })
+      .animate({
+        top:     y + (ball.dy * 350),
+        left:    x + (ball.dx * 350),
+        opacity: 0
+      }, {
+        specialEasing: {
+          top:     'linear',
+          left:    'linear',
+          opacity: 'avoidInstr'
+        },
+        duration: ball.compute_duration(ball.power, x + (ball.dx * 350), y + (ball.dy * 350)),
+        complete: function () {
+          $(this).remove();
+        }
+      });
   });
 
   this.start_time = Date.now();
@@ -227,3 +253,12 @@ var are_touching = function (b1, b2) {
   var c2 = new SAT.Circle(new SAT.Vector(b2.get_x(), b2.get_y()), r);
   return SAT.testCircleCircle(c1, c2);
 }
+
+/**
+ * New easing function for avoid instructions
+ */
+$.extend(jQuery.easing, {
+  avoidInstr: function (x, t, b, c, d) {
+    return x * x * x;
+  }
+});

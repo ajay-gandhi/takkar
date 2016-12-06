@@ -53,6 +53,14 @@
   cursor: pointer;
 }
 
+.takkar .avoid-instr {
+  position: absolute;
+  font-size: 16px;
+  font-variant: small-caps;
+  font-family: Futura, Helvetica;
+  z-index: 200;
+}
+
 /**
  * Ball styles
  */
