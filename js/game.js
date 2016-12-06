@@ -53,8 +53,42 @@ Takkar.prototype.stop = function () {
  * Called when the player loses
  */
 Takkar.prototype.game_over = function () {
+  var self = this;
   this.stop();
-  console.log('GAME OVER');
+
+  // Animate player exploding
+  var d = this.player.player_el.width();
+  this.player.player_el
+    .css({
+      'border-radius': (d / 2 * 1.5) + 'px'
+    })
+    .animate({
+      top: '-=' + (d / 4),
+      left: '-=' + (d / 4),
+      width: d * 1.5,
+      height: d * 1.5
+    }, {
+      duration: 'fast',
+      complete: function () {
+        $(this)
+          .delay(500)
+          .animate({
+            opacity: 0.2,
+            top: '+=' + (d / 2),
+            left: '+=' + (d / 2),
+            width: d / 2,
+            height: d / 2
+          });
+
+        var over = $('<div class="final-score"></div>');
+        over.html('Game over!<br />You survived for ' + score + 's.');
+        self.game_el.append($('<div class="cover"></div>'));
+        self.game_el.append(over);
+        self.game_el.find('.cover').delay(800).fadeTo('normal', 0.7);
+        self.game_el.find('.final-score').delay(800).fadeIn();
+        self.game_el.css('cursor', 'auto');
+      }
+    });
 }
 
 /**
@@ -85,6 +119,8 @@ var clock_tick = function (self) {
  * Checks for collisions between all entities in the game
  */
 var check_collisions = function (self) {
+  if (self.balls.length < 1) return;
+
   // Convert each object to a SAT.js object
   var r = self.balls[0].ball_el.width() / 2;
   var objects = self.balls.map(function (b) {
@@ -112,7 +148,7 @@ var check_collisions = function (self) {
 
       if (did_collide) {
         // If player collided, game over
-        if (objects[i].is_p || objects[j].is_p) self.game_over();
+        if (objects[i].is_p || objects[j].is_p) return self.game_over();
 
         // Trade ball directions
         var jx = objects[j].ball.dx, jy = objects[j].ball.dy;
