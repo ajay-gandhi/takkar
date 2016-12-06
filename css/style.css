@@ -3,7 +3,8 @@
   font-family: Futura, Helvetica;
 }
 body {
-  cursor: default;
+  cursor: auto;
+  overflow: hidden;
 }
 
 #game {
