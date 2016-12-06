@@ -5,9 +5,9 @@
 
 var POWER_MULTIPLIER = 1;
 
-function Ball () {
+function Ball (power) {
   this.ball_el = false;
-  this.power = 5;
+  this.power = power;
   this.dy = (Math.random() * 0.5) + 0.25;
   this.dx = 1 - this.dy;
 }
@@ -21,13 +21,15 @@ Ball.prototype.render = function (parent) {
 }
 
 /**
- * Starts the ball's movement
+ * Starts the ball's movement, calls the callback function once the ball is
+ * ready
  */
-Ball.prototype.start = function (parent) {
+Ball.prototype.start = function (cb) {
   if (!this.ball_el) return console.error('Start failed: ball not rendered.');
 
   var self = this;
   this.ball_el.fadeIn('slow', function () {
+    cb();
     self.next_move();
   });
 }
