@@ -47,3 +47,22 @@ body {
   border: none;
   padding: 0;
 }
+
+.mvmt-instr {
+  position: relative;
+  left: 10px;
+  display: inline-block;
+  margin-top: -5px;
+  margin-left: 77px;
+  width: 83px;
+  /*border: 1px solid blue;*/
+}
+.mvmt-instr .mouse {
+  opacity: 0.35;
+}
+.mvmt-instr img {
+  position: relative;
+  top: 4px;
+  margin-top: -9px;
+  opacity: 0.4;
+}
