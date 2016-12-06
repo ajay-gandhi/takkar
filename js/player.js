@@ -46,7 +46,7 @@ Player.prototype.bind = function () {
     move_player(x, y);
   });
 
-  $('body').bind('touchstart touchmove', function (e) {
+  $('html, body').bind('touchstart touchmove', function (e) {
     e.preventDefault();
     var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
     var y = touch.pageY - parent.offset().top - size;
