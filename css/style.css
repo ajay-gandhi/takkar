@@ -1,8 +1,24 @@
 
+* {
+  font-family: Futura, Helvetica;
+}
 body {
   cursor: default;
 }
 
 #game {
   text-align: center;
+}
+
+#options {
+  width: 400px;
+  margin: 0 auto;
+  color: #c2c2c2;
+}
+.quality {
+  font-size: 16px;
+  color: #c2c2c2;
+  background: none;
+  border: none;
+  padding: 0;
 }
