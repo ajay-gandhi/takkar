@@ -74,9 +74,9 @@
  */
 .takkar .player {
   position: absolute;
-  bottom: 0;
+/*  bottom: 0;
   right: 0;
-  background-color: #2687fb;
+*/  background-color: #2687fb;
   z-index: 100;
 }
 .blue-grad {

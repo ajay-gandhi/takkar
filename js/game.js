@@ -45,7 +45,7 @@ Takkar.prototype.start = function () {
  */
 Takkar.prototype.stop = function () {
   window.clearTimeout(this.timeoutId);
-  this.player.unbind();
+  this.player.stop();
   this.balls.forEach(function (b) { b.ball_el.stop(); });
 }
 
