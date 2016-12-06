@@ -53,16 +53,17 @@ body {
   left: 10px;
   display: inline-block;
   margin-top: -5px;
-  margin-left: 77px;
-  width: 83px;
-  /*border: 1px solid blue;*/
+  margin-left: 79px;
+  width: 81px;
 }
 .mvmt-instr .mouse {
+  top: 4px;
   opacity: 0.35;
+  margin-right: -3px;
 }
 .mvmt-instr img {
   position: relative;
-  top: 4px;
+  top: 6px;
   margin-top: -9px;
   opacity: 0.4;
 }
