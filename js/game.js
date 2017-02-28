@@ -4,13 +4,13 @@
  */
 
 var next_power = 6;
-var quality_map = [-1, 75, 50, 25];
+var quality_map = [-1, 70, 40, 20];
 
 function Takkar () {
   this.game_el = false;
   this.player = new Player();
   this.balls = [];
-  this.speed = 50;
+  this.speed = quality_map[2];
   this.is_low_q = false;
   this.new_ball = false;
 }
@@ -197,76 +197,59 @@ var clock_tick = function (self) {
 var check_collisions = function (self) {
   if (self.balls.length < 1) return;
 
-  // Convert each object to a SAT.js object
-  var r = self.balls[0].ball_el.width() / 2;
-  var objects = self.balls.map(function (b) {
-    var c = new SAT.Circle(new SAT.Vector(b.get_x(), b.get_y()), r);
-    return {
-      is_p: false,
-      ball: b,
-      sat:  c
-    }
-  });
-
-  // Add player
-  var p = self.player;
-  objects.push({
-    is_p: true,
-    ball: p,
-    sat: new SAT.Circle(new SAT.Vector(p.get_x(), p.get_y()), r)
-  });
+  // Collect all objects
+  var objects = self.balls.concat(self.player);
+  var diameter = self.balls[0].ball_el.width();
 
   // Perform collision detection
   for (var i = 0; i < objects.length; i++) {
     // Check with all j > i
     for (var j = i + 1; j < objects.length; j++) {
-      var did_collide = SAT.testCircleCircle(objects[i].sat, objects[j].sat);
+      var did_collide = test_collision(objects[i], objects[j], diameter);
 
       if (did_collide) {
         // If player collided, game over
-        if (objects[i].is_p || objects[j].is_p) return self.game_over();
+        if (objects[i].player_el || objects[j].player_el)
+          return self.game_over();
 
         // Trade ball directions
-        var jx = objects[j].ball.dx, jy = objects[j].ball.dy;
-        objects[j].ball.dx = objects[i].ball.dx;
-        objects[j].ball.dy = objects[i].ball.dy;
-        objects[i].ball.dx = jx;
-        objects[i].ball.dy = jy;
+        var jx = objects[j].dx, jy = objects[j].dy;
+        objects[j].dx = objects[i].dx;
+        objects[j].dy = objects[i].dy;
+        objects[i].dx = jx;
+        objects[i].dy = jy;
 
         // Trade power level
-        var jp = objects[j].ball.power;
-        objects[j].ball.power = objects[i].ball.power;
-        objects[i].ball.power = jp;
+        var jp = objects[j].power;
+        objects[j].power = objects[i].power;
+        objects[i].power = jp;
 
         // Move balls until they aren't touching
-        var b;
-        // while (are_touching(objects[i].ball, objects[j].ball)) {
-          b = objects[i].ball;
-          b.ball_el.css('left', b.get_x() + (b.dx * b.power));
-          b.ball_el.css('top', b.get_y() + (b.dy * b.power));
-          b = objects[j].ball;
-          b.ball_el.css('left', b.get_x() + (b.dx * b.power));
-          b.ball_el.css('top', b.get_y() + (b.dy * b.power));
-        // }
+        var b = objects[i];
+        b.ball_el.css('left', b.get_x() + (b.dx * b.power));
+        b.ball_el.css('top', b.get_y() + (b.dy * b.power));
+        b = objects[j];
+        b.ball_el.css('left', b.get_x() + (b.dx * b.power));
+        b.ball_el.css('top', b.get_y() + (b.dy * b.power));
 
         // Stop initial movement and start again
-        objects[i].ball.ball_el.stop();
-        objects[j].ball.ball_el.stop();
-        objects[i].ball.next_move();
-        objects[j].ball.next_move();
+        objects[i].ball_el.stop();
+        objects[j].ball_el.stop();
+        objects[i].next_move();
+        objects[j].next_move();
       }
     }
   }
 }
 
 /**
- * Checks collisions between a single pair of balls
+ * Checks collision between a single pair of balls
  */
-var are_touching = function (b1, b2) {
-  var r = b1.ball_el.width() / 2;
-  var c1 = new SAT.Circle(new SAT.Vector(b1.get_x(), b1.get_y()), r);
-  var c2 = new SAT.Circle(new SAT.Vector(b2.get_x(), b2.get_y()), r);
-  return SAT.testCircleCircle(c1, c2);
+var test_collision = function (b1, b2, diam) {
+  var dx = b1.get_x() - b2.get_x();
+  var dy = b1.get_y() - b2.get_y();
+  var dist = Math.sqrt(dx * dx + dy * dy);
+  return dist < diam;
 }
 
 /**
